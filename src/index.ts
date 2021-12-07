@@ -1,5 +1,6 @@
 // Core dependencies
 import express from 'express';
+import { connect } from 'mongoose';
 
 // Interfaces
 import IRouter from './interfaces/IRouter';
@@ -17,12 +18,12 @@ class Main {
   /**
    * Starts the webservice
    */
-  public static Start() {
+  public static async Start() {
     const { app } = Main;
     app.use(express.json());
 
     Main.loadRouters();
-    Main.startServer();
+    await Main.startServer();
   }
 
   // #region Routers load
@@ -51,19 +52,12 @@ class Main {
   /**
    * Starts the Express server
    */
-  public static startServer() {
+  public static async startServer() {
     const { app } = Main;
-    const { port } = config;
-
-    app.listen(port, this.onListen);
-  }
-
-  /**
-   * Function executed when service starts to listen for requests
-   */
-  public static onListen() {
-    const { serviceName, port } = config;
-    console.log(`${serviceName} started on port ${port}`);
+    const { port, mongoUri, serviceName } = config;
+    await connect(mongoUri);
+    console.log('Connected to MongoDb');
+    app.listen(port, () => console.log(`${serviceName} started on port ${port}`));
   }
   // #endregion
 }

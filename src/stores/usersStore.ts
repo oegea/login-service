@@ -1,8 +1,5 @@
 // Core dependencies
-import { Schema, model, connect } from 'mongoose';
-
-// Config
-import config from '../config';
+import { Schema, model } from 'mongoose';
 
 // Interfaces
 import IUser from '../interfaces/IUser';
@@ -13,13 +10,14 @@ class UsersStore {
       email: { type: String, required: true },
       passwordHash: { type: String, required: true },
       passwordSalt: { type: String, required: true },
+      verificationCode: { type: String, required: false },
+      isActive: { type: Boolean, required: true },
+      resetCode: { type: String, required: false },
     });
 
     private Model = model<IUser>('User', this.schema);
 
     public async create(user: IUser) {
-      await connect(config.mongoUri);
-
       const userInstance = new this.Model(user);
       await userInstance.save();
       return userInstance;
