@@ -19,7 +19,7 @@ class RouterUtils {
       const response: ServiceResponse = RouterUtils.generateResponse(true, result);
       res.send(response);
     } catch (error) {
-      const data = (this.isDebug) ? error : 'Unhandled exception ocurred';
+      const data = (this.isDebug) ? error.message : 'Unhandled exception ocurred';
       const response = RouterUtils.generateResponse(false, data);
       res.status(500).send(response);
     }
