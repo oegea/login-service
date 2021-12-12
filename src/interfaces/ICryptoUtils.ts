@@ -13,6 +13,14 @@ interface ICryptoUtils {
      * @returns Generated hash
      */
     generatePasswordHash(password: string, salt: string): Promise<string>;
+
+    /**
+     * Generates a random number between the minimum and maximum specified
+     * @param min Minimum number
+     * @param max Maximum number
+     * @returns Random number
+     */
+    generateRandomNumber(min: number, max: number): number;
 }
 
 export default ICryptoUtils;

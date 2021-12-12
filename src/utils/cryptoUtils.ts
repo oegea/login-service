@@ -4,6 +4,7 @@ import crypto from 'crypto';
 // Interfaces
 import ICryptoUtils from '../interfaces/ICryptoUtils';
 
+/* eslint class-methods-use-this: 0 */
 class CryptoUtils implements ICryptoUtils {
   private DEFAULT_SALT_SIZE = 128;
 
@@ -46,6 +47,16 @@ class CryptoUtils implements ICryptoUtils {
       );
     });
     return promise;
+  }
+
+  /**
+   * Generates a random number between the minimum and maximum specified
+   * @param min Minimum number
+   * @param max Maximum number
+   * @returns Random number
+   */
+  generateRandomNumber(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
 }
 

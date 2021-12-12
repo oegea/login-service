@@ -5,4 +5,8 @@ module.exports = {
     'node_modules',
     'dist',
   ],
+  modulePathIgnorePatterns: [
+    'node_modules',
+    'dist',
+  ],
 };
